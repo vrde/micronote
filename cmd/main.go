@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	m "github.com/vrde/micronote"
 	"log"
@@ -18,7 +19,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%v", notes)
 
 	defer f.Close()
+
+	date := flag.String("date", "", "a date")
+	flag.Parse()
+
+	fmt.Println("Search for: " + *date)
+	r := m.Search(notes, *date)
+	fmt.Printf("%s", &r)
 }
