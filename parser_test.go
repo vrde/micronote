@@ -57,5 +57,10 @@ Other text.
 `)
 	notes, err := p.Parse(r)
 	assert.Nil(t, err)
-	assert.Equal(t, e, notes)
+	// assert.Equal(t, e, notes)
+	for i, n := range notes {
+		assert.True(t, e[i].Date.Equal(n.Date))
+		assert.Equal(t, e[i].Tags, n.Tags)
+		assert.Equal(t, e[i].Text, n.Text)
+	}
 }
