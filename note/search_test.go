@@ -1,8 +1,9 @@
-package micronote
+package note
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSearch(t *testing.T) {
@@ -19,6 +20,18 @@ func TestSearch(t *testing.T) {
 		},
 	}
 
-	r := Search(n, "2018-09-16T11")
-	assert.Equal(t, Notes{n[1]}, r)
+	assert.Equal(
+		t,
+		Notes{n[1]},
+		Search(n, "2018-09-16T11", ""))
+
+	assert.Equal(
+		t,
+		Notes{n[0]},
+		Search(n, "2018-09-16", "foo"))
+
+	assert.Equal(
+		t,
+		n,
+		Search(n, "2018-09-16", "bar"))
 }

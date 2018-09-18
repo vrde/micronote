@@ -1,9 +1,10 @@
-package micronote
+package note
 
 import (
-	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestFeed(t *testing.T) {
@@ -34,14 +35,14 @@ func TestParse(t *testing.T) {
 	p := NewParser()
 	e := Notes{
 		Note{
-			Date: "2018-09-16T12:00:00+02:00",
-			Tags: []string{"foo", "bar"},
-			Text: "Some multiline\n\ntext.\n\n",
-		},
-		Note{
 			Date: "2018-09-16T11:00:00+02:00",
 			Tags: []string{"bar", "baz"},
 			Text: "Other text.\n",
+		},
+		Note{
+			Date: "2018-09-16T12:00:00+02:00",
+			Tags: []string{"foo", "bar"},
+			Text: "Some multiline\n\ntext.\n\n",
 		},
 	}
 	r := strings.NewReader(`2018-09-16T12:00:00+02:00 foo bar

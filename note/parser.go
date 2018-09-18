@@ -1,4 +1,4 @@
-package micronote
+package note
 
 import (
 	"bufio"
@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"regexp"
+	"sort"
 	"strings"
 )
 
@@ -16,15 +17,15 @@ type Note struct {
 }
 
 func (n *Note) String() string {
-	return fmt.Sprintf("%s %v\n%s", n.Date, n.Tags, n.Text)
+	return fmt.Sprintf("%s %s\n%s\n", n.Date, strings.Join(n.Tags, " "), n.Text)
 }
 
 type Notes []Note
 
 func (n *Notes) String() string {
 	buffer := ""
-	for i, note := range *n {
-		buffer += fmt.Sprintf("%d. %s\n", i, &note)
+	for _, note := range *n {
+		buffer += fmt.Sprintf("%s", &note)
 	}
 	return buffer
 }
@@ -87,5 +88,8 @@ func (p *Parser) Parse(r io.Reader) (Notes, error) {
 		notes = append(notes, *note)
 	}
 
+	sort.Slice(notes, func(i, j int) bool {
+		return notes[i].Date < notes[j].Date
+	})
 	return notes, nil
 }
