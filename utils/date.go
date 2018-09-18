@@ -8,7 +8,9 @@ import (
 func NewDate(s string) string {
 	short := "2006-01-02"
 
-	if s == "" {
+	if strings.Index("all", s) == 0 {
+		return ""
+	} else if strings.Index("now", s) == 0 {
 		return time.Now().Format(time.RFC3339)
 	} else if strings.Index("today", s) == 0 {
 		return time.Now().Format(short)
